@@ -1,0 +1,62 @@
+set number
+set autoindent
+set smartindent
+"set cindent
+set scrolloff=5
+set backspace=2
+
+let loaded_matchparen = 1
+
+set laststatus=2
+set showcmd
+
+colorscheme sublimemonokai
+syntax on
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+inoremap { {<Enter>}<Esc>O
+
+set wildmenu
+set completeopt-=preview
+
+autocmd BufNewFile *.c exec ":call SetTitle()"
+autocmd BufNewFile *.cpp exec ":call SetTitle()"
+
+func SetTitle()
+	if &filetype == 'c'
+		call setline(1, "#include <stdio.h>")
+		call append(line("."), "#include <stdlib.h>")
+		call append(line(".")+1, "#include <unistd.h>")
+		call append(line(".")+2, "")
+		call append(line(".")+3, "/*")
+		call append(line(".")+4, " *function:")
+		call append(line(".")+5, " */")
+		call append(line(".")+6, "")
+		call append(line(".")+7, "int main(int argc, char *argv[]){")
+		call append(line(".")+8, "")
+		call append(line(".")+9, "")
+		call append(line(".")+10, "")
+		call append(line(".")+11, "\treturn 0")
+		call append(line(".")+12, "}")
+	endif
+
+	if &filetype == 'cpp'
+		call setline(1, "#include <iostream>")
+		call append(line("."), "using namespace std;")
+		call append(line(".")+1, "")
+		call append(line(".")+2, "/*")
+		call append(line(".")+3, " *function:")
+		call append(line(".")+4, " */")
+		call append(line(".")+5, "")
+		call append(line(".")+6, "int main(int argc, char *argv[]){")
+		call append(line(".")+7, "")
+		call append(line(".")+8, "")
+		call append(line(".")+9, "")
+		call append(line(".")+10, "\treturn 0;")
+		call append(line(".")+11, "}")
+	endif
+endfunc
+
+autocmd BufNewFile *.c normal 6G A
+autocmd BufNewFile *.cpp normal 5G A
