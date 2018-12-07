@@ -5,7 +5,7 @@ set smartindent
 set scrolloff=5
 set backspace=2
 
-let loaded_matchparen = 1
+let loaded_matchparen = 1  "设置不高亮显示配对的括号
 
 set laststatus=2
 set showcmd
@@ -16,11 +16,41 @@ if has("autocmd")
 endif
 
 colorscheme sublimemonokai
+hi comment ctermfg=2	"设置注释颜色为绿色
 syntax on
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
+ser cursorline		 	"高亮显示当前行背景色
 inoremap { {<Enter>}<Esc>O
+inoremap { {}<Esc>i
+inoremap ( ()<Esc>i
+inoremap [ []<Esc>i
+
+inoremap } <c-r>=ClosePair('}')<CR>
+inoremap ) <c-r>=ClosePair(')')<CR>
+inoremap ] <c-r>=ClosePair(']')<CR>
+"inoremap <c-r>=ClosePair
+
+//设置输入右括号时移动到右括号右侧
+function! ClosePair(char)
+    if getline('.')[col('.') - 1] == a:char
+        return "\<Right>"
+    else
+        return a:char
+    endif
+endfunction
+
+//设置换行时如果在大括号内进行缩进
+imap <CR> <c-r>=ChangeLine('}')<CR>
+function! ChangeLine(char)
+    if getline('.')[col('.') - 1] == a:char
+        return "\<CR>\<Esc>\O"
+    else 
+        return "\<CR>"
+    endif
+endfunction
+
 
 set wildmenu
 set completeopt-=preview
