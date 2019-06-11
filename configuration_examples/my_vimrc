@@ -21,7 +21,7 @@ syntax on
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
-ser cursorline		 	"高亮显示当前行背景色
+set cursorline		 	"高亮显示当前行背景色
 inoremap { {<Enter>}<Esc>O
 inoremap { {}<Esc>i
 inoremap ( ()<Esc>i
@@ -30,9 +30,9 @@ inoremap [ []<Esc>i
 inoremap } <c-r>=ClosePair('}')<CR>
 inoremap ) <c-r>=ClosePair(')')<CR>
 inoremap ] <c-r>=ClosePair(']')<CR>
-"inoremap <c-r>=ClosePair
+" inoremap <c-r>=ClosePair
 
-//设置输入右括号时移动到右括号右侧
+" 设置输入右括号时移动到右括号右侧
 function! ClosePair(char)
     if getline('.')[col('.') - 1] == a:char
         return "\<Right>"
@@ -41,7 +41,7 @@ function! ClosePair(char)
     endif
 endfunction
 
-//设置换行时如果在大括号内进行缩进
+" 设置换行时如果在大括号内进行缩进
 imap <CR> <c-r>=ChangeLine('}')<CR>
 function! ChangeLine(char)
     if getline('.')[col('.') - 1] == a:char
